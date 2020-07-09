@@ -1,213 +1,240 @@
-window.onload = function(){
-    function Slider(id){
-        //轮播图容器
-        this.container = document.getElementById(id);
-        //轮播图中的所有的图片li集合    
-        this.imgArr = this.container.children[0].children[0].children;
-        //控制轮播图的左右箭头和小圆点所在的容器
-        this.ctrl = this.container.children[1];
-        //当前是第几个图
-        this.index = 0;
-        //每个li的宽度
-        this.width = this.imgArr[0].offsetWidth
-        //定时器
-        this.timer = null;
-        //初始化轮播图方法
-        this.init = function(){
-        /*
-            1 根据图片li的数量生成相同数量的小圆点,把小圆点放到this.ctrl里面
-            2 点亮索引是index的小圆点
-            3 点击小圆点,小圆点高亮,显示对应的图片
-            4 点击右箭头,看下一张图片
-            5 点击左箭头,看上一张图片
-            6 自动轮播
-            7 鼠标移入轮播图停止轮播,鼠标移出轮播图开始轮播
-        */
-            this.newPoints();
-            this.light();//点亮第0个小圆点
-            var that = this;
-            this.ctrl.onclick = function(e){                
-                var evt = window.event || e;
-                var target = evt.target || evt.srcElement;
-                if(target.className.indexOf('slider-ctrl-con')>-1){
-                    //小圆点
-                    that.clickPoint(target.index) 
-                }
-                else if(target.className=='prev'){
-                    //上一张
-                    that.prev()
-                }
-                else if(target.className=='next'){
-                    //下一张
-                    that.next()
-                }
-            };
-            this.autoPlay();
-            this.container.onmouseenter = function(){
-                //停止轮播
-                clearInterval(that.timer)
-            }
-            this.container.onmouseleave = function(){
-                //开始轮播
-                that.autoPlay();
-            }
 
 
-        }
-        this.newPoints = function(){
-            //根据图片li的数量生成相同数量的小圆点,把小圆点放到this.ctrl里面
-            for(var i=this.imgArr.length-1;i>=0;i--){
-                var newPoint = document.createElement('span');
-                newPoint.className = "slider-ctrl-con";
-                //给每个小圆点添加一个自定义属性,记录他是第几个小圆点
-                newPoint.index = i;
-                //每个小圆点都放到this.ctrl的第一个子元素的前面
-                this.ctrl.insertBefore(newPoint,this.ctrl.children[0]); 
-                //其他图片都固定到容器的右边
-                this.imgArr[i].style.left = this.width+"px";
-            }
-            //只有当前图片在容器中
-            this.imgArr[0].style.left = 0;
+  var mySwiper1 = new Swiper ('.swiper-container.banner-lnubo', {
+      // direction: 'vertical', // 垂直切换选项
+      loop: true, // 是否无缝轮播
+      autoplay:{
+          disableOnInteraction: false,
+      },//是否自动轮播
+      delay:1000,
+      effect:'fade',
+      // 如果需要分页器 小圆点
 
-        };
+      pagination: {
+        el: '.swiper-pagination',
+        clickable:true
+      },
+      
+      // 如果需要前进后退按钮
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+        hideOnClick: true,
+        hiddenClass: 'my-button-hidden',
+      },
+    })    
+    mySwiper1.el.onmouseover = function(){ //鼠标放上暂停轮播
+      mySwiper1.autoplay.stop();
+    }
+    mySwiper1.el.onmouseleave = function(){
+      mySwiper1.autoplay.start();
+    } 
+    
+    var mySwiper2 = new Swiper ('.swiper-container.banner-qiehuan', {
+      // direction: 'vertical', // 垂直切换选项
+      loop: true, // 是否无缝轮播
+      delay:10000,
+      effect:'fade',
 
-        this.light = function(){
-            var spanArr = this.ctrl.children;
-            //点亮索引是index的小圆点
-            for(var i=0;i<spanArr.length-2;i++){
-                spanArr[i].className = "slider-ctrl-con"
-            }
-            spanArr[this.index].className = "slider-ctrl-con current"
-        };
-        this.clickPoint = function(index){
-            //点击小圆点,小圆点高亮,显示对应的图片
-            //当前图片索引是this.index,要看的index
-            if(index>this.index){
-                //把当前图片瞬移到右边
-                this.imgArr[index].style.left = this.width+"px";
-                animation(this.imgArr[index],{left:0})
-                animation(this.imgArr[this.index],{left:-this.width})
-            }
-            else if(index<this.index){
-                //把当前图片瞬移到左边
-                this.imgArr[index].style.left = -this.width+"px";
-                animation(this.imgArr[index],{left:0})
-                animation(this.imgArr[this.index],{left:this.width})
-            }
-            this.index = index;
-            this.light()
-        }
-        this.next = function(){
-            //看下一张图片
-            var index = this.index +1;
-            if(index>this.imgArr.length-1){
-                index = 0;
-            }
-            this.imgArr[index].style.left = this.width+"px";
-            animation(this.imgArr[index],{left:0})
-            animation(this.imgArr[this.index],{left:-this.width});
-            this.index = index;
-            this.light()
-        }
-        this.prev = function(){
-            //看上一张图片
-            var index = this.index -1;
-            if(index<0){
-                index = this.imgArr.length-1;
-            }
-            this.imgArr[index].style.left = -this.width+"px";
-            animation(this.imgArr[index],{left:0})
-            animation(this.imgArr[this.index],{left:this.width});
-            this.index = index;
-            this.light()
-        }
-        this.autoPlay = function(){
-            //自动轮播
-            clearInterval(this.timer);
-            //1 箭头函数不会改变this指向,有兼容问题
-            // this.timer = setInterval(()=>{
-            //     this.next()
-            // },3000)
-            //2 bind可以指定函数中this的指向,有兼容问题,bind不执行函数
-            // this.timer = setInterval(this.next.bind(this),3000)
-            //3 call可以改变函数中this的执行,call会执行函数
-            var that = this;
-            this.timer = setInterval(function(){
-                that.next.call(that)
-            },3000)
+      // 如果需要前进后退按钮
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+        hideOnClick: true,
+        // hiddenClass: 'my-button-hidden',
+      },
+    })  
+    mySwiper2.el.onmouseover = function(){ //鼠标放上暂停轮播
+     
+      mySwiper2.navigation.$nextEl.removeClass('hide');
+      mySwiper2.navigation.$prevEl.removeClass('hide');
+    }
+    mySwiper2.el.onmouseleave = function(){
+      mySwiper2.navigation.$nextEl.addClass('hide');
+      mySwiper2.navigation.$prevEl.addClass('hide');
+    } 
 
+
+
+
+    var mySwiper3 = new Swiper ('.swiper-container.sekill-shop', {
+      // direction: 'vertical', // 垂直切换选项
+      loop: true, // 是否无缝轮播
+      delay:10000,
+      effect:'slide',
+
+      // 如果需要前进后退按钮
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+        hideOnClick: true,
+        // hiddenClass: 'my-button-hidden',
+      },
+    })      
+
+    var mySwiper4 = new Swiper ('.swiper-container.sekill-lunbo', {
+      // direction: 'vertical', // 垂直切换选项
+      loop: true, // 是否无缝轮播
+      autoplay:{
+          disableOnInteraction: false,
+      },//是否自动轮播
+      delay:1000,
+      effect:'slide',
+      // 如果需要分页器 小圆点
+
+      pagination: {
+        el: '.swiper-pagination',
+        clickable:true
+      },
+
+    }) 
+    
+
+   //橱窗效果 发现好货
+
+    var moves=document.querySelector(".smbottom");
+    var smShop=document.querySelector(".find-right");
+    var xbtn=document.querySelector(".xmove");
+    var smtop=document.querySelector(".smtop");
+    smShop.onmouseover=function(){
+        clearInterval(timer)
+        moves.style.display="block";
+    }
+    smShop.onmouseout=function(){
+        timer=timer=setInterval(time,30);
+        moves.style.display="none";
+    }
+    xbtn.onmousedown=function(e){
+        var e=e||window.event;
+        var x=e.offsetX;
+        var y=e.offsetY;
+        var w=smShop.offsetLeft;
+        document.body.onmousemove=function(e){
+            var e=e||window.event;
+            var l=e.clientX;
+            var h=e.clientY;       
+            var movex=l-x-w;
+            xbtn.style.left=movex+"px";     
+            if(movex<=0){
+                movex=0;
+            xbtn.style.left=0+"px";
+            }else if(movex>=900){
+                movex=900;
+
+            xbtn.style.left=900+"px";
+            }
+            smtop.style.left=-(20/9)*movex+"px";
+            e.preventDefault();        
         }
-        
+        e.preventDefault();		
+        }
+    document.body.onmouseup=function(){
+        document.body.onmousemove=null
+    }
+    //动画
+    var str=0;
+    var timer=setInterval(time,30)
+
+    function time(){
+        str++;
+        if(str>=2000){
+            str=0;
+        }
+        smtop.style.left=-str+"px";
+        xbtn.style.left=(9/20)*str+"px";     
     }
 
+    // banner 左侧列表显示效果
+    $('.banner-list').children().on('mousemove',function(){
+      $('.list-xianshi').css({
+        display:'block'
+      })
+    })
 
-    function Slider1(id){
-        //轮播图容器
-        this.container = document.getElementById(id);
-        //轮播图中的所有的图片li集合    
-        this.imgArr = this.container.children[0].children[0].children;
-        //控制轮播图的左右箭头和小圆点所在的容器
-        this.ctrl = this.container.children[1];
-        //当前是第几个图
-        this.index = 0;
-        //每个li的宽度
-        this.width = this.imgArr[0].offsetWidth
-        //定时器
-        this.timer = null;
-        //初始化轮播图方法
-        this.init = function(){
-            var that = this;
-            this.container.onmouseenter = function(){
-                
-               that.ctrl.style.display = 'block'
-               that.ctrl.onclick = function(e){                
-                   var evt = window.event || e;
-                   var target = evt.target || evt.srcElement;
-                   if(target.className=='prev'){
-                       //上一张
-                       that.prev()
-                   }
-                   else if(target.className=='next'){
-                       //下一张
-                       that.next()
-                   }
-               }
-            }
-            this.container.onmouseleave = function(){
-                that.ctrl.style.display = 'none'
-            }
-        }
-        this.next = function(){
-            //看下一张图片
-            var index = this.index +1;
-            if(index>this.imgArr.length-1){
-                index = 0;
-            }
-            this.imgArr[index].style.left = this.width+"px";
-            animation(this.imgArr[index],{left:0})
-            animation(this.imgArr[this.index],{left:-this.width});
-            this.index = index;
-        }
-        this.prev = function(){
-            //看上一张图片
-            var index = this.index -1;
-            if(index<0){
-                index = this.imgArr.length-1;
-            }
-            this.imgArr[index].style.left = -this.width+"px";
-            animation(this.imgArr[index],{left:0})
-            animation(this.imgArr[this.index],{left:this.width});
-            this.index = index;
-        }
-        
+    $('.banner-list').on('mouseout',function(){
+      $('.list-xianshi').css({
+        display:'none'
+      })
+    })
+ 
+      
+
+    // 输入框联想
+    $('.search').on('input',function(){ 
+      //1 获取输入的关键字
+      var text = $(this).val();
+      //2 利用$.ajax发请求
+      $.ajax({
+          //callback=fn不能直接写在参数里面,要jquery帮助我们自动拼接
+          url:"https://suggest.taobao.com/sug?code=utf-8&q="+text+"&_ksTS=1593314375249_483&k=1&area=c2c&bucketid=12",
+          success:function(data){
+              //为了防止重复添加li要先把ul里面内容
+              $('.think').empty()
+              //获取数据要先打印
+              console.log(data.result);
+              //全局的each方法:$.each(要遍历的对象,每次遍历执行的函数)
+              $.each(data.result,function(index,value){
+                  $('.think').append('<a href="#"><li>'+value[0]+'</li></a>')
+              })
+              
+          },
+          dataType:"jsonp"
+      })
+    
+    })
+
+
+
+// 商品跳转详情页同步
+var arr = $('.shop-con').children();
+$.each(arr,function(index,value){
+  
+  arr[index].onclick = function(){
+    var imgurl = arr[index].children[0].children[0].getAttribute('src');
+    var p = arr[index].children[1].innerHTML;
+    var price = arr[index].children[2].children[0].innerHTML;
+    window.sessionStorage.index = index;
+    window.sessionStorage.imgurl = imgurl;
+    window.sessionStorage.p = p;
+    window.sessionStorage.price = price;
+  }
+})
+
+   // 登录同步
+   var login = $('.login').parent();
+   if(window.sessionStorage.name){
+       login.html('欢迎您      '+window.sessionStorage.name);
+   }
+   
+
+  //  购物车同步
+  if(window.sessionStorage.num){
+
+  var inp1 = $('.input').children()[2];
+  inp1.children[0].children[1].innerHTML=window.sessionStorage.num;
+
+  var inp2 = $('.sow-con').children()[1].children[2].children[0].children[1];
+  inp2.innerHTML=window.sessionStorage.num;
+  }
+    //  楼层跳跃
+   //获取相关元素
+   var inp = document.querySelector('.sow');
+   var floor = document.querySelector('.floor');
+
+
+  window.onscroll = function(){
+    // 2. 获取卷去的高度
+    var topD = document.documentElement.scrollTop || document.body.scrollTop
+    // 3. 判断 topD 是不是大于 300
+    if (topD > 300) {
+      // div 该显示了
+      inp.style.top = '0'
+      floor.style.opacity = 1;
+    } else {
+      // div 该隐藏了
+      inp.style.top = '-54px'
+      floor.style.opacity = 0;
     }
 
-
-    var slider = new Slider('slider');
-    slider.init()
-    var slider1 = new Slider1('banner-slider');
-    slider1.init()
-    var slider2 = new Slider1('sekill-shop');
-    slider2.init();
-
-}
+  }
+ 

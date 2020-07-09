@@ -29,10 +29,16 @@
                 <h3><p>京东不会以任何理由要求您转账汇款，谨防诈骗。</p></h3>
                 <ul><a href="#">扫码登录</a><a href="#">账户登录</a></ul>
                 <div class="inp">
-                    <label for="login"></label><input type="text" placeholder="邮箱/用户名/登录手机" id="login"><br>
-                    <label for="pwd" class="pwd"></label><input type="password" placeholder="密码" id="pwd"><br>
-                    <span><a href="#">忘记密码?</a></span>
-                    <button>登录</button>
+                    <label for="login">
+                        <i></i>
+                        <input type="text" placeholder="邮箱/用户名/登录手机" id="login"><br>
+                    </label>
+                    <label for="pwd">
+                        <i  class="pwd"></i>
+                        <input type="password" placeholder="密码" id="pwd"><br>
+                    </label>
+                    <em>账号密码有误，请重新输入！</em><span><a href="#">忘记密码?</a></span>
+                    <input type="button" class="btn" value="登录">
                 </div>
                 <div class="register">
                     <h2><a href="#">QQ</a><a href="#">微信</a></h2>
@@ -59,5 +65,7 @@
         </ul>
         <p>Copyright © 2004-2020  京东JD.com 版权所有</p>
     </div>
+    <script src="../lib/jquery/jquery-1.12.4.js"></script>
+    <script src="../js/login.js"></script>
 </body>
 </html>

@@ -47,6 +47,9 @@
     line-height: 14px;
     border-right:1px solid #ccc;
 }
+.header-con .header-right li:first-child{
+    color: red;
+}
 .header-right li a{
     font-size: 12px;
     color: #999999;
@@ -118,11 +121,12 @@
 }
 .shop-con .cart-menu{
     width: 996px;
-    height: 334px;
+    min-height: 334px;
     margin-top: 20px;
     position: relative;
 }
 .cart-menu .null{
+    /* display: none; */
     width: 354px;
     height: 58px;
     position: absolute;
@@ -146,6 +150,179 @@
     line-height: 24px;
     margin: 7px 18px 0 0;
 }
+.cart-menu .shop{
+    min-height: 180px;
+}
+.cart-menu .shop .shopview{
+    margin-bottom: 10px;
+}
+.cart-menu .shop h2{
+    height: 32px;
+}
+.cart-menu .shop h2 span{
+    display: block;
+    width: 75px;
+    font-size: 14px;
+    font-weight: bold;
+    color: red;
+    border-bottom: 2px solid red;
+}
+.cart-menu .shop h2 span em {
+    font-size: 14px;
+    margin-left: 5px;
+}
+.cart-menu .shop p{
+    height: 34px;
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    background-color: #f3f3f3;
+    padding: 5px 0;
+    margin-bottom: 10px;
+    font-size: 10px;
+    color: #666;
+}
+.cart-menu .shop p span:nth-child(1){
+    display: inline-block;
+    width: 133px;
+    height: 25px;
+    padding: 5px 0 0 11px;
+    line-height: 32px;
+}
+.cart-menu .shop p span:nth-child(2){
+    display: inline-block;
+    width: 288px;
+    height: 32px;
+    line-height: 32px;
+}
+.cart-menu .shop p span:nth-child(3){
+    display: inline-block;
+    width: 160px;
+    height: 32px;
+    padding: 0px 40px 0 0px;
+    line-height: 32px;
+    text-align: right;
+}
+.cart-menu .shop p span:nth-child(4){
+    display: inline-block;
+    width: 50px;
+    height: 32px;
+    line-height: 32px;
+}
+.cart-menu .shop p span:nth-child(5){
+    display: inline-block;
+    width: 140px;
+    height: 32px;
+    padding: 0px 50px 0 0px;
+    line-height: 32px;
+    text-align: right;
+}
+.cart-menu .shop p span:nth-child(6){
+    display: inline-block;
+    width: 75px;
+    height: 32px;
+    line-height: 32px;
+}
+
+.cart-menu .shop h3{
+    height: 30px;
+    text-align: left;
+    padding-left: 11px;
+    border-bottom: 3px solid #022;
+}
+.cart-menu .shop h4{
+    height: 120px;
+    background-color: #fff4e8;
+    padding-left: 10px;
+}
+.cart-menu .shop h4 span{
+    display: inline-block;
+    width: 170px;
+    height: 56px;
+    font-size: 10px;
+    padding: 15px 0 10px;
+    color: #999;
+}
+.shop h4 img{
+    width: 80px;
+    height: 80px;
+    margin: 0px 10px;
+    position: relative;
+    top: 20px;
+    left: 0;
+}
+.shop h4 .danjia{
+    text-align: right;
+    font-size: 12px;
+    color: #333;
+    display: inline-block;
+    width: 300px;
+    height: 90px;
+    padding: 15px 20px 10px 0;
+}
+.shop i button{
+    width: 17px;
+    height: 22px;
+}
+.shop i input{
+    width: 40px;
+    height: 19px;
+    text-align: center;
+    font-size: 12px;
+    color: #000;
+    border: 1px solid #999;
+}
+.shop .zongji{
+    display: inline-block;
+    width: 140px;
+    height: 45px;
+    font-size: 12px;
+    color: #333;
+    font-weight: bold;
+    text-align: right;
+    padding: 15px 40px 10px 0;
+}
+.shop h5{
+    height: 52px;
+    border:1px solid #ccc;
+    padding-left: 10px;
+}
+.shop h5 .all{
+    width: 50px;
+    line-height: 52px;
+    font-size: 14px;
+    color: #999;
+    float: left;
+}
+.shop h5 .allprice{
+    width: 190px;
+    height: 52px;
+    float: right;
+}
+.shop h5 .allprice{
+    font-size: 12px;
+    line-height: 52px;
+    color: #000;
+} 
+.shop h5 .allprice em{   
+    font-size: 16px;
+    color: red;
+    margin-right: 5px;
+}
+.shop h5 .allprice button{
+    width: 92px;
+    height: 52px;
+    border: none;
+    font-size: 20px;
+    line-height: 52px;
+    background-color: red;
+    color: #fff;
+    margin-left: 5px;
+}
+
+
+
+
+
 /* guess 猜你喜欢 */
 #guess{
     min-width: 996px;

@@ -126,7 +126,7 @@
     text-align: center;
     padding: 34px 20px 0;
 }
-.form .inp label{
+.form .inp label i{
     display: block;
     width: 38px;
     height: 38px;
@@ -134,7 +134,7 @@
     border: 1px solid #666;
     background:#f1f1f1 url(../images/user.png) no-repeat center center;
 }
-.form .inp label.pwd{
+.form .inp i.pwd{
     background:#f1f1f1 url(../images/password.png) no-repeat center center;
 
 }
@@ -146,6 +146,13 @@
     margin-bottom: 20px;
     padding-left: 10px;
 }
+.form .inp em{
+    display: block;
+    float: left;
+    font-size: 14px;
+    color: red;
+    display: none;
+}
 .form .inp span a{
     display: block;
     font-size: 12px;
@@ -153,7 +160,7 @@
     float: right;
     margin-bottom: 20px;
 }
-.form .inp button{
+.form .inp .btn{
     width: 304px;
     height: 38px;
     background: red;
@@ -162,6 +169,7 @@
     text-align: center;
     line-height: 38px;
     border: none;
+    cursor: pointer;
 }
 .form .register{
     height: 36px;

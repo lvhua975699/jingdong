@@ -23,9 +23,18 @@
             <div class="form">
                 <ul><a href="#">用户注册</a></ul>
                 <div class="inp">
-                    <label for="login"></label><input type="text" placeholder="邮箱/用户名/手机" id="login"><br>
-                    <label for="pwd" class="pwd"></label><input type="password" placeholder="密码" id="pwd"><br>
-                    <button>立即注册</button>
+                    <label for="login">
+                        <i></i>
+                        <input type="text" placeholder="邮箱/用户名/登录手机" id="login"><br>
+                        <p class="error err1">请按规则输入用户名</p>
+                    </label>
+                    <label for="pwd">
+                        <i  class="pwd"></i>
+                        <input type="password" placeholder="密码" id="pwd"><br>
+                        <p class="error err2">请按规则输入密码</p>
+                    </label>
+                    <input type="button" value="立即注册" class="btn">
+                    <span class="tishi">注册失败！请重新注册!</span> 
                 </div>
 
             </div>
@@ -49,5 +58,7 @@
         </ul>
         <p>Copyright © 2004-2020  京东JD.com 版权所有</p>
     </div>
+    <script src="../lib/jquery/jquery-1.12.4.js"></script>
+    <script src="../js/register.js"></script>
 </body>
 </html>

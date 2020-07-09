@@ -55,6 +55,13 @@
       "unicode_decimal": 58914
     },
     {
+      "icon_id": "3141397",
+      "name": "左箭头",
+      "font_class": "arrow-left-copy",
+      "unicode": "e511",
+      "unicode_decimal": 58641
+    },
+    {
       "icon_id": "3265773",
       "name": "礼品卡",
       "font_class": "-",
@@ -83,6 +90,13 @@
       "unicode_decimal": 58881
     },
     {
+      "icon_id": "6187062",
+      "name": "右箭头",
+      "font_class": "arrow-backimg",
+      "unicode": "e502",
+      "unicode_decimal": 58626
+    },
+    {
       "icon_id": "6490003",
       "name": "飞机 (5)",
       "font_class": "feiji",
@@ -107,8 +121,8 @@
       "icon_id": "12276361",
       "name": "购物车",
       "font_class": "gouwuche1",
-      "unicode": "e502",
-      "unicode_decimal": 58626
+      "unicode": "e503",
+      "unicode_decimal": 58627
     },
     {
       "icon_id": "12623535",
